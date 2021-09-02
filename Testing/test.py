@@ -1,0 +1,5 @@
+print("""HOLW COW!
+CRISTIAN HAS
+GONE
+MAD
+""")
