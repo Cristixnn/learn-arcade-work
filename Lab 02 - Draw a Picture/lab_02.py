@@ -1,5 +1,5 @@
 """
- Beach
+Dangerous Beach
 """
 
 # Imports arcade library
