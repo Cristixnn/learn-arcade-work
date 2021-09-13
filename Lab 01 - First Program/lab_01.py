@@ -1,0 +1,1 @@
+print("Cristian Montecinos and Nicole Cea midget \nI LOVE YOU :) \n\"I love you a lot\" ")
