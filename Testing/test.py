@@ -1,5 +1,2 @@
-print("""HOLW COW!
-CRISTIAN HAS
-GONE
-MAD
-""")
+x = "friends"
+print(x)
