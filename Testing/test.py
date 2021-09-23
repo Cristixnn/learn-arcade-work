@@ -1,12 +1,9 @@
-# Example 14
-def a(my_list):
-    print("function a, list =  ", my_list)
-    my_list = [10, 20, 30]
-    print("function a, list =  ", my_list)
+import random
 
 
-my_list = [5, 2, 4]
-
-print("global scope, list =", my_list)
-a(my_list)
-print("global scope, list =", my_list)
+for i in range(20):
+    my_number = random.randrange(5)
+    if my_number == 0:
+        print("dragon!")
+    else:
+        print(" No dragon!")
