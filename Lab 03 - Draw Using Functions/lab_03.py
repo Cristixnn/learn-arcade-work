@@ -5,7 +5,7 @@ SCREEN_HEIGHT = 600
 
 
 def draw_sun():
-    """ this function makes the sun """
+    """ this function draws the sun """
     arcade.draw_circle_filled(40, 180, 90, arcade.csscolor.YELLOW)
     arcade.draw_triangle_filled(45, 350,
                                 30, 280,
