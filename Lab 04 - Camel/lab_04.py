@@ -36,6 +36,7 @@ Q. Quit.\n""")
 
         elif user_choice.upper() == "D":
             horse_tiredness = 0
+<<<<<<< HEAD
             npc_miles = random.randrange(7, 14)
             hunters_traveled = hunters_traveled + npc_miles
             print("Your horse is rested and healthy!\n")
@@ -56,9 +57,31 @@ Q. Quit.\n""")
                 done = True
             elif miles_traveled - hunters_traveled <= 14:
                 print("The hunters are getting close!\n")
+=======
+            hunters_traveled = hunters_traveled + random.randrange(7, 14)
+            print("Your horse is rested and healthy!\n")
+            if hunters_traveled < 14 or miles_traveled:
+                print("The bounty hunters are getting close!\n")
+
+        elif user_choice.upper() == "C":
+            horse_tiredness = horse_tiredness + random.randrange(1, 3)
+            miles_traveled = miles_traveled + random.randrange(10, 20)
+            thirst = thirst + 1
+            hunters_traveled = hunters_traveled + random.randrange(7, 14)
+            print("\nYour horse breaks into a furious gallop!")
+            print("You have " + str(miles_traveled) + " miles .\n")
+
+        if miles_traveled <= hunters_traveled:
+            print("You have been caught! Try again!")
+            done = True
+>>>>>>> 73485dc21fe317ee1fa0a37752738c27165ff071
         if miles_traveled >= 200:
             print("You made it across the desert! You Won!")
             done = True
 
 
+<<<<<<< HEAD
 main()
+=======
+main()
+>>>>>>> 73485dc21fe317ee1fa0a37752738c27165ff071

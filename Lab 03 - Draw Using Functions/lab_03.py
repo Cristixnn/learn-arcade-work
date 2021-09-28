@@ -5,7 +5,11 @@ SCREEN_HEIGHT = 600
 
 
 def draw_sun():
+<<<<<<< HEAD
     """ this function makes the sun """
+=======
+    """ this function draws the sun """
+>>>>>>> 73485dc21fe317ee1fa0a37752738c27165ff071
     arcade.draw_circle_filled(40, 180, 90, arcade.csscolor.YELLOW)
     arcade.draw_triangle_filled(45, 350,
                                 30, 280,
@@ -65,8 +69,11 @@ def main():
     draw_bird(500, 320)
     draw_bird(570, 340)
     draw_bird(300, 280)
+<<<<<<< HEAD
     draw_bird(100, 500)
     draw_fin(400, 60)
+=======
+>>>>>>> 73485dc21fe317ee1fa0a37752738c27165ff071
 
     # Finish and run
     arcade.finish_render()
@@ -74,4 +81,8 @@ def main():
 
 
 # Call the main function to get the program started.
+<<<<<<< HEAD
 main()
+=======
+main()
+>>>>>>> 73485dc21fe317ee1fa0a37752738c27165ff071
