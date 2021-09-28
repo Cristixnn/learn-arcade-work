@@ -14,7 +14,7 @@ arcade.set_background_color(arcade.csscolor.SKY_BLUE)
 # Ready to draw
 arcade.start_render()
 
-# Sun
+# Draws sun
 arcade.draw_circle_filled(40, 380, 90, arcade.csscolor.YELLOW)
 arcade.draw_triangle_filled(45, 550,
                             30, 480,
@@ -36,7 +36,7 @@ arcade.draw_circle_filled(400, 420, 70, arcade.csscolor.WHITE)
 arcade.draw_circle_filled(350, 380, 70, arcade.csscolor.GHOST_WHITE)
 arcade.draw_circle_filled(310, 390, 60, arcade.csscolor.WHITE_SMOKE)
 
-# Ocean
+#  Draws ocean
 arcade.draw_lrtb_rectangle_filled(0, 600, 401, 0, arcade.csscolor.DEEP_SKY_BLUE)
 arcade.draw_triangle_filled(250, 400,
                             0, 400,
@@ -102,3 +102,4 @@ arcade.finish_render()
 
 # keep window up until someone closes it.
 arcade.run()
+
