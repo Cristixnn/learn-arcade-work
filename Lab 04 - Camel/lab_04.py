@@ -42,24 +42,50 @@ Q. Quit.\n""")
             print("Your horse is rested and healthy!\n")
 
         elif user_choice.upper() == "C":
-            horse_tiredness = horse_tiredness + random.randrange(1, 3)
-            miles = random.randrange(10, 20)
-            npc_miles = random.randrange(7, 14)
-            miles_traveled = miles_traveled + miles
             thirst = thirst + 1
+            full_speed = random.randrange(10, 20)
+            npc_miles = random.randrange(7, 14)
+            miles_traveled = miles_traveled + full_speed
             hunters_traveled = hunters_traveled + npc_miles
-            print("\nYour horse breaks into a furious gallop!")
-            print("You traveled " + str(miles) + " miles .\n")
+            horse_tiredness = horse_tiredness + random.randrange(1, 3)
+            print("\nYou traveled " + str(full_speed) + " miles.\n")
+
+        elif user_choice.upper() == "B":
+            thirst = thirst + 1
+            horse_tiredness = horse_tiredness + 1
+            moderate_speed = random.randrange(5, 12)
+            npc_miles = random.randrange(7, 14)
+            miles_traveled = miles_traveled + moderate_speed
+            hunters_traveled = hunters_traveled + npc_miles
+            print("You traveled " + str(moderate_speed) + " miles.\n")
+
+        elif user_choice.upper() == "A":
+            if canteen > 0:
+                canteen = canteen - 1
+                thirst = 0
+                print("You are hydrated!\n")
+            else:
+                print("You have no drinks left!\n")
 
         if not done:
             if miles_traveled <= hunters_traveled:
-                print("You have been caught! Try again!")
+                print("You have been caught! You lose!")
                 done = True
-            elif miles_traveled - hunters_traveled <= 14:
+            elif miles_traveled - hunters_traveled <= 15:
                 print("The hunters are getting close!\n")
         if miles_traveled >= 200:
             print("You made it across the desert! You Won!")
             done = True
+        if thirst >= 6:
+            print("You have died of thirst!\n")
+            done = True
+        elif thirst >= 4:
+            print("You are thirsty!")
+        if horse_tiredness >= 8:
+            print("Your horse is dead! You lost!\n")
+        elif horse_tiredness >= 5:
+            print("Your horse is tired!")
+
 
 
 main()
