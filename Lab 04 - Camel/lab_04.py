@@ -10,9 +10,8 @@ def main():
           "\nThe stables wants there horse back and have put a bounty on you. Bounty hunters are after you!"
           "\nYou must go through the Mobi desert and outrun the bounty hunters.")
 
-
     if not done:
-     print("A. Drink water from your canteen.")
+        print("A. Drink water from your canteen.")
     print("B. Ahead moderate speed.")
     print("C. Ahead of full speed")
     print("D. Stop and rest.")
@@ -22,5 +21,6 @@ def main():
     Answer = input("What is your choice?")
     if Answer < "A":
         print(" You are hydrated!")
+
 
 main()
