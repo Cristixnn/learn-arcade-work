@@ -22,7 +22,7 @@ def draw_sun():
 
 def draw_ocean():
     """  this function generates ocean """
-    arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 3, 0, arcade.color.SKY_BLUE)
+    arcade.draw_lrtb_rectangle_filled(0, SCREEN_WIDTH, SCREEN_HEIGHT / 3, 0, arcade.color.GREEN)
 
 
 def draw_fin(x, y):

@@ -29,7 +29,7 @@ def main():
 
     # Room 2
     my_room = Room("You see a shack! Its locked, that's strange."
-                   "\nGo back to the middle yard by going west.", None, None, None, 2)
+                   "\nGo back to the middle yard by going west.", None, None, None, 1)
     room_list.append(my_room)
 
     # Room 3
