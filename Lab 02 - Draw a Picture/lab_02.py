@@ -70,7 +70,6 @@ arcade.draw_arc_filled(490, 60, 5, 5, arcade.csscolor.SIENNA, 0, 360)
 arcade.draw_arc_filled(450, 40, 5, 5, arcade.csscolor.SIENNA, 0, 360)
 arcade.draw_arc_filled(460, 60, 5, 5, arcade.csscolor.SIENNA, 0, 360)
 
-
 # Patch of grass
 arcade.draw_circle_filled(630, 50, 100, arcade.csscolor.DARK_GREEN)
 arcade.draw_circle_filled(580, -20, 100, arcade.csscolor.GREEN)
@@ -81,12 +80,12 @@ arcade.draw_polygon_filled([[360, 290],
                             [380, 250],
                             [440, 250],
                             [460, 290],
-                           [410, 330]], arcade.color.BROWN)
+                            [410, 330]], arcade.color.BROWN)
 arcade.draw_polygon_outline([[360, 290],
-                            [380, 250],
-                            [440, 250],
-                            [460, 290],
-                            [410, 330]], arcade.color.WHITE_SMOKE, 5)
+                             [380, 250],
+                             [440, 250],
+                             [460, 290],
+                             [410, 330]], arcade.color.WHITE_SMOKE, 5)
 arcade.draw_text("SHARKS", 375, 280, arcade.color.WHITE, 13)
 
 # Edge
@@ -96,6 +95,20 @@ arcade.draw_lrtb_rectangle_outline(0, 600, 401, 0, arcade.csscolor.BLACK, 1)
 arcade.draw_lrtb_rectangle_filled(480, 580, 420, 350, arcade.csscolor.SIENNA)
 arcade.draw_triangle_filled(470, 420, 590, 420, 530, 460, arcade.csscolor.SADDLE_BROWN)
 arcade.draw_arc_filled(530, 350, 40, 70, arcade.csscolor.BLACK, 0, 180)
+
+
+# Kite
+def kite():
+    arcade.draw_triangle_filled(120, 300,
+                                190, 300,
+                                160, 340, arcade.csscolor.RED)
+
+    arcade.draw_triangle_filled(120, 300,
+                                190, 300,
+                                160, 240, arcade.csscolor.DARK_RED)
+    arcade.draw_line(160, 241,
+                     90, 180, arcade.csscolor.BLACK, 4)
+
 
 # finish drawing
 arcade.finish_render()
