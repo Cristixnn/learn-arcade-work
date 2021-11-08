@@ -1,7 +1,7 @@
 import arcade
 
 """ Variables"""
-MOVEMENT_SPEED = 5
+MOVEMENT_SPEED = 50
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
