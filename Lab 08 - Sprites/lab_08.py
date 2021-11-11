@@ -60,7 +60,7 @@ class MyGame(arcade.Window):
 
         arcade.set_background_color(arcade.color.BLACK)
 
-        # sound effect from Arcade resource's
+        # Sound effect from Arcade resource's
         self.gem_sound = arcade.load_sound("arcade_resources_sounds_coin4.wav")
         self.rock_sound = arcade.load_sound("arcade_resources_sounds_error2.wav")
 
@@ -84,7 +84,7 @@ class MyGame(arcade.Window):
         # Create the gems
         for i in range(GEM_COUNT):
             # Create the gem instance
-            # gem image from arcade library
+            # Gem image from arcade library
             gem = Gem("gemBlue.png", SPRITE_SCALING_GEMS / 3)
 
             # Position the gem
