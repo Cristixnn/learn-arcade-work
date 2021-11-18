@@ -98,7 +98,7 @@ class MyGame(arcade.Window):
 
 
 def main():
-    window = MyGame(640, 480, "Lab 7 - User Control")
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
     arcade.run()
 
 

@@ -1,29 +1,90 @@
-"""
- class
-    attributes - adjectives - instance variables
-    methods - verbs - functions
+import arcade
 
-inheritance
-parent/child
-super-class is the parent
-parent class is more generic
+WIDTH = 50
+HEIGHT = 50
+MARGIN = 5
+COLUMN_COUNT = 10
+ROW_COUNT = 10
 
--- kitchen is a room --
-
-
-class -- child class of arcade.window
-    on_mouse_motion
-    set_mouse_visible
-    on_mouse_press
-
-keyboard:
-    need starting position
-    need more speed
-    need to stop when key released
-    on_key_press
-    on_key_release
-
-game controller
+SCREEN_WIDTH = (WIDTH + MARGIN) * COLUMN_COUNT + MARGIN
+SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
 
 
-"""
+class MyGame(arcade.Window):
+    """
+    Main application class.
+    """
+
+    def __init__(self, width, height):
+        super().__init__(width, height)
+
+        arcade.set_background_color(arcade.color.BLACK)
+
+        # Create grid of numbers
+        self.grid = []
+        for row in range(ROW_COUNT):
+            self.grid.append([])
+            for column in range(COLUMN_COUNT):
+                self.grid[row].append(0)
+
+
+
+        print(self.grid)
+
+    def on_draw(self):
+        """
+        Render the screen.
+        """
+
+        # Variable
+
+        arcade.start_render()
+        for row in range(ROW_COUNT):
+            for column in range(COLUMN_COUNT):
+                x = WIDTH / 2 + column * (WIDTH + MARGIN) + MARGIN
+                y = HEIGHT / 2 + row * (HEIGHT + MARGIN) + MARGIN
+                if self.grid[row][column] == 0:
+                    color = arcade.color.WHITE
+                else:
+                    color = arcade.color.GREEN
+
+                arcade.draw_rectangle_filled(x, y,
+                                             WIDTH, HEIGHT,
+                                             color)
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        """
+        Called when the user presses a mouse button.
+        """
+
+        row = y // (HEIGHT + MARGIN)
+        column = x // (WIDTH + MARGIN)
+
+        if self.grid[row][column] == 0:
+            self.grid[row + 1][column] = 1
+            self.grid[row - 1][column] = 1
+            self.grid[row][column + 1] = 1
+            self.grid[row][column - 1] = 1
+            self.grid[row][column] = 1
+
+        else:
+            self.grid[row + 1][column] = 0
+            self.grid[row - 1][column] = 0
+            self.grid[row][column + 1] = 0
+            self.grid[row][column - 1] = 0
+            self.grid[row][column] = 0
+            self.grid[row][column] = 0
+
+
+
+
+        print("click", row, column)
+
+
+def main():
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
+    arcade.run()
+
+
+if __name__ == "__main__":
+    main()
