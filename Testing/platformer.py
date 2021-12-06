@@ -24,7 +24,11 @@ VIEWPORT_MARGIN = 220
 CAMERA_SPEED = 0.1
 
 # How fast the character moves
-PLAYER_MOVEMENT_SPEED = 7
+PLAYER_MOVEMENT_SPEED = 5
+
+# Gem
+SPRITE_SCALING_GEM = 0.5
+GEM_COUNT = 50
 
 
 class MyGame(arcade.Window):
@@ -36,7 +40,10 @@ class MyGame(arcade.Window):
         """
         super().__init__(width, height, title, resizable=True)
 
+        map_name = "Jumpy.json"
+
         # Sprite lists
+        self.tile_map = arcade.load_tilemap(map_name, scaling=SPRITE_SCALING)
         self.player_list = None
         self.wall_list = None
 
@@ -45,6 +52,10 @@ class MyGame(arcade.Window):
 
         # Physics engine so we don't run into walls.
         self.physics_engine = None
+
+        # Gem list
+
+        self.gem_list = None
 
         # Create the cameras. One for the GUI, one for the sprites.
         # We scroll the 'sprite world' but not the GUI.
@@ -59,19 +70,17 @@ class MyGame(arcade.Window):
         self.wall_list = arcade.SpriteList()
 
         # Set up the player
-        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/femalePerson_idle.png",
+        self.player_sprite = arcade.Sprite("slimePurple.png",
                                            scale=0.4)
-        self.player_sprite.center_x = 256
-        self.player_sprite.center_y = 512
+        self.player_sprite.center_x = 600
+        self.player_sprite.center_y = 100
         self.player_list.append(self.player_sprite)
 
-        map_name = "level1.json"
-        self.tile_map = arcade.load_tilemap(map_name, scaling=SPRITE_SCALING)
-        self.wall_list = self.tile_map.sprite_lists["Walls"]
+        self.wall_list = self.tile_map.sprite_lists["Tile Layer 1"]
 
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.player_sprite,
                                                              self.wall_list,
-                                                             gravity_constant= 0.7)
+                                                             gravity_constant=0.9)
 
         # Set the background color
         if self.tile_map.background_color:
@@ -92,7 +101,7 @@ class MyGame(arcade.Window):
         self.wall_list.draw()
         self.player_list.draw()
 
-        # Select the (unscrolled) camera for our GUI
+        # Select the (scrolled) camera for our GUI
         self.camera_gui.use()
 
         # Draw the GUI

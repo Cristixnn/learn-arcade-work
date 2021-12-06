@@ -1,90 +1,35 @@
-import arcade
+# sorting items
+my_list = [15, 57, 14, 33, 72, 79, 26, 56, 42, 40]
+print(my_list)
 
-WIDTH = 50
-HEIGHT = 50
-MARGIN = 5
-COLUMN_COUNT = 10
-ROW_COUNT = 10
-
-SCREEN_WIDTH = (WIDTH + MARGIN) * COLUMN_COUNT + MARGIN
-SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
+# swap 15 and 14 values
+temp = my_list[2]
+my_list[2] = my_list[0]
+my_list[0] = temp
 
 
-class MyGame(arcade.Window):
-    """
-    Main application class.
-    """
+# 15 57 14 33 72 79 26 56 42 40
+# 14 is smallest, swap 14 to position 0
+# This is the selection sort. I am selecting the smallest
+# and swapping
 
-    def __init__(self, width, height):
-        super().__init__(width, height)
-
-        arcade.set_background_color(arcade.color.BLACK)
-
-        # Create grid of numbers
-        self.grid = []
-        for row in range(ROW_COUNT):
-            self.grid.append([])
-            for column in range(COLUMN_COUNT):
-                self.grid[row].append(0)
-
+def selection_sort(my_list):
+    for cur_pos in range(len(my_list)):
+        min_pos = cur_pos
+        for scan_pos in range(cur_pos + 1, len(my_list)):
+            if my_list[scan_pos] < my_list[min_pos]:
+                min_pos = scan_pos
+        # Swap
+        temp = my_list[min_pos]
+        my_list[min_pos] = my_list[cur_pos]
+        my_list[cur_pos] = temp
 
 
-        print(self.grid)
+my_list = [15, 57, 14, 33, 72, 79, 26, 56, 42, 40]
+selection_sort(my_list)
+print(my_list)
 
-    def on_draw(self):
-        """
-        Render the screen.
-        """
-
-        # Variable
-
-        arcade.start_render()
-        for row in range(ROW_COUNT):
-            for column in range(COLUMN_COUNT):
-                x = WIDTH / 2 + column * (WIDTH + MARGIN) + MARGIN
-                y = HEIGHT / 2 + row * (HEIGHT + MARGIN) + MARGIN
-                if self.grid[row][column] == 0:
-                    color = arcade.color.WHITE
-                else:
-                    color = arcade.color.GREEN
-
-                arcade.draw_rectangle_filled(x, y,
-                                             WIDTH, HEIGHT,
-                                             color)
-
-    def on_mouse_press(self, x, y, button, modifiers):
-        """
-        Called when the user presses a mouse button.
-        """
-
-        row = y // (HEIGHT + MARGIN)
-        column = x // (WIDTH + MARGIN)
-
-        if self.grid[row][column] == 0:
-            self.grid[row + 1][column] = 1
-            self.grid[row - 1][column] = 1
-            self.grid[row][column + 1] = 1
-            self.grid[row][column - 1] = 1
-            self.grid[row][column] = 1
-
-        else:
-            self.grid[row + 1][column] = 0
-            self.grid[row - 1][column] = 0
-            self.grid[row][column + 1] = 0
-            self.grid[row][column - 1] = 0
-            self.grid[row][column] = 0
-            self.grid[row][column] = 0
-
-
-
-
-        print("click", row, column)
-
-
-def main():
-    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
-    arcade.run()
-
-
-if __name__ == "__main__":
-    main()
+# n = 10, 10 * 5 = 50
+# n = 100, 100 * 50 = 5000
+# n = 1000, 1000 * 500 = 500,000
+# n * (n / 2) = n^2 / 2

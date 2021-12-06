@@ -27,7 +27,7 @@ class MyGame(arcade.Window):
             for column in range(COLUMN_COUNT):
                 self.grid[row].append(0)
 
-        self.grid[4][5] = 1
+
 
         print(self.grid)
 
@@ -59,15 +59,34 @@ class MyGame(arcade.Window):
 
         row = y // (HEIGHT + MARGIN)
         column = x // (WIDTH + MARGIN)
-        if self.grid[row][column] == 0:
-            self.grid[row][column] = 1
-        else:
-            self.grid[row][column] = 0
 
-        if self.grid[row][column] == 0:
-            self.grid[row][column] = 1
-        else:
-            self.grid[row][column] = 0
+        if row + 1 < ROW_COUNT and column < COLUMN_COUNT:
+
+            if self.grid[row - 1][column] == 0:
+                self.grid[row - 1][column] = 1
+            else:
+                self.grid[row - 1][column] = 0
+
+        if row < ROW_COUNT and column < COLUMN_COUNT:
+
+            # Flip the location between 1 and 0.
+            if self.grid[row][column] == 0:
+                self.grid[row][column] = 1
+            else:
+                self.grid[row][column] = 0
+
+            if self.grid[row + 1][column] == 0:
+                self.grid[row + 1][column] = 1
+            else:
+                self.grid[row + 1][column] = 0
+
+
+
+
+
+
+
+
 
         print("click", row, column)
 
