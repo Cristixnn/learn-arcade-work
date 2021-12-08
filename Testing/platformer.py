@@ -54,8 +54,9 @@ class MyGame(arcade.Window):
         self.physics_engine = None
 
         # Gem list
-
+        self.score = 0
         self.gem_list = None
+        self.camera_for_gui = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
 
         # Create the cameras. One for the GUI, one for the sprites.
         # We scroll the 'sprite world' but not the GUI.
@@ -65,12 +66,14 @@ class MyGame(arcade.Window):
     def setup(self):
         """ Set up the game and initialize the variables. """
 
+        self.gem_list = arcade.SpriteList()
+
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
 
         # Set up the player
-        self.player_sprite = arcade.Sprite("slimePurple.png",
+        self.player_sprite = arcade.Sprite("../Lab 12 - Final Lab/slimePurple.png",
                                            scale=0.4)
         self.player_sprite.center_x = 600
         self.player_sprite.center_y = 100
@@ -86,6 +89,31 @@ class MyGame(arcade.Window):
         if self.tile_map.background_color:
             arcade.set_background_color(self.tile_map.background_color)
 
+        for i in range(GEM_COUNT):
+
+            gem = arcade.Sprite("../Lab 12 - Final Lab/gemBlue.png", SPRITE_SCALING_GEM)
+
+            gem_placed_successfully = False
+
+            # Keep trying until success
+            while not gem_placed_successfully:
+                # Position the gem
+                gem.center_x = random.randrange(2000)
+                gem.center_y = random.randrange(3000)
+
+                # See if the gem is hitting a wall
+                wall_hit_list = arcade.check_for_collision_with_list(gem, self.wall_list)
+
+                # See if the gem is hitting another gem
+                gem_hit_list = arcade.check_for_collision_with_list(gem, self.gem_list)
+
+                if len(wall_hit_list) == 0 and len(gem_hit_list) == 0:
+                    # It is!
+                    gem_placed_successfully = True
+
+            # Add the gem to the lists
+            self.gem_list.append(gem)
+
     def on_draw(self):
         """
         Render the screen.
@@ -100,19 +128,15 @@ class MyGame(arcade.Window):
         # Draw all the sprites.
         self.wall_list.draw()
         self.player_list.draw()
+        self.gem_list.draw()
+
+        self.camera_for_gui.use()
+        arcade.draw_text(f"Score: {self.score}", 10, 10, arcade.color.WHITE, 24)
 
         # Select the (scrolled) camera for our GUI
         self.camera_gui.use()
 
         # Draw the GUI
-        arcade.draw_rectangle_filled(self.width // 2,
-                                     20,
-                                     self.width,
-                                     40,
-                                     arcade.color.ALMOND)
-        text = f"Scroll value: ({self.camera_sprites.position[0]:5.1f}, " \
-               f"{self.camera_sprites.position[1]:5.1f})"
-        arcade.draw_text(text, 10, 10, arcade.color.BLACK_BEAN, 20)
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
@@ -139,6 +163,12 @@ class MyGame(arcade.Window):
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.physics_engine.update()
+        self.gem_list.update()
+
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.gem_list)
+        for gem in hit_list:
+            gem.remove_from_sprite_lists()
+            self.score += 1
 
         # Scroll the screen to the player
         self.scroll_to_player()
