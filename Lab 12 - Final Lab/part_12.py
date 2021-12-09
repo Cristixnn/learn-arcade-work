@@ -95,8 +95,8 @@ class MyGame(arcade.Window):
             # Keep trying until success
             while not gem_placed_successfully:
                 # Position the gem
-                gem.center_x = random.randrange(2000)
-                gem.center_y = random.randrange(3000)
+                gem.center_x = random.randrange(100, 1000)
+                gem.center_y = random.randrange(6000)
 
                 # See if the gem is hitting a wall
                 wall_hit_list = arcade.check_for_collision_with_list(gem, self.wall_list)
