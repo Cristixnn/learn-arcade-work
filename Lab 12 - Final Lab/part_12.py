@@ -1,6 +1,7 @@
 import random
 import arcade
 
+done = False
 SPRITE_SCALING = 0.5
 
 DEFAULT_SCREEN_WIDTH = 800
@@ -53,6 +54,11 @@ class MyGame(arcade.Window):
         # We scroll the 'sprite world' but not the GUI.
         self.camera_sprites = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
         self.camera_gui = arcade.Camera(DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT)
+
+        self.gem_sound = arcade.load_sound("arcade_resources_sounds_coin2.wav")
+        self.jump_sound = arcade.load_sound("arcade_resources_sounds_jump4.wav")
+        self.background_sound = arcade.load_sound("arcade_resources_music_1918.mp3")
+        arcade.play_sound(self.background_sound)
 
     def setup(self):
         """ Set up the game and initialize the variables. """
@@ -127,14 +133,13 @@ class MyGame(arcade.Window):
         # Select the (scrolled) camera for our GUI
         self.camera_gui.use()
 
-        # Draw the GUI
-
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
         if key == arcade.key.UP:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = 20
+                arcade.play_sound(self.jump_sound)
         elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
@@ -160,6 +165,7 @@ class MyGame(arcade.Window):
         for gem in hit_list:
             gem.remove_from_sprite_lists()
             self.score += 1
+            arcade.play_sound(self.gem_sound)
 
         # Scroll the screen to the player
         self.scroll_to_player()
@@ -175,6 +181,7 @@ class MyGame(arcade.Window):
 
         position = self.player_sprite.center_x - self.width / 2, \
                    self.player_sprite.center_y - self.height / 2
+
         self.camera_sprites.move_to(position, CAMERA_SPEED)
 
     def on_resize(self, width, height):
