@@ -16,7 +16,7 @@ VIEWPORT_MARGIN = 220
 CAMERA_SPEED = 0.1
 
 # How fast the character moves
-PLAYER_MOVEMENT_SPEED = 5
+PLAYER_MOVEMENT_SPEED = 6
 
 # Gem
 SPRITE_SCALING_GEM = 0.5
@@ -142,8 +142,10 @@ class MyGame(arcade.Window):
                 arcade.play_sound(self.jump_sound)
         elif key == arcade.key.LEFT:
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
+
         elif key == arcade.key.RIGHT:
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
+
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
