@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+print("--- Linear Search ---")
+=======
 import random
 import arcade
 
@@ -251,3 +254,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd

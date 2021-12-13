@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+import re
+
+
+# This function takes in a line of text and returns
+# a list of words in the line.
+def split_line(line):
+    return re.findall('[A-Za-z]+(?:\'[A-Za-z]+)?', line)
+=======
 import random
 import arcade
 
@@ -183,3 +192,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd

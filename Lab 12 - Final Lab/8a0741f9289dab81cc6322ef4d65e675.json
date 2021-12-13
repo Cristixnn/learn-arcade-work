@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"..\/..\/..\/Pictures\/istockphoto-488118027-170667a.jpg",
+ "imageheight":337,
+ "imagewidth":509,
+ "margin":0,
+ "name":"istockphoto-488118027-170667a",
+ "spacing":0,
+ "tilecount":6,
+ "tiledversion":"1.7.1",
+ "tileheight":128,
+ "tilewidth":128,
+ "type":"tileset",
+ "version":"1.6"
+}

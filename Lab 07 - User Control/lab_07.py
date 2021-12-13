@@ -1,18 +1,64 @@
 import arcade
+<<<<<<< HEAD
+import random
+
+MOVEMENT_SPEED = 5
+SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_COIN = 0
+COIN_COUNT = 60
+=======
 
 """ Variables"""
 MOVEMENT_SPEED = 50
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 
+<<<<<<< HEAD
+class Player:
+    def __init__(self, position_x, position_y, change_x, change_y, radius, color):
+=======
 class Bird:
     def __init__(self, position_x, position_y):
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
         # Take the parameters of the init function above,
         # and create instance variables out of them.
         self.position_x = position_x
         self.position_y = position_y
+<<<<<<< HEAD
+        self.change_x = change_x
+        self.change_y = change_y
+        self.radius = radius
+        self.color = color
+
+    def draw(self):
+        """ Draw the balls with the instance variables we have. """
+        arcade.draw_circle_filled(self.position_x,
+                                  self.position_y,
+                                  self.radius, self.
+                                  color)
+
+    def update(self):
+        # Move the ball
+        self.position_y += self.change_y
+        self.position_x += self.change_x
+
+        # See if the ball hit the edge of the screen. If so, change direction
+
+        if self.position_x < self.radius:
+            self.position_x = self.radius
+
+        if self.position_x > SCREEN_WIDTH - self.radius:
+            self.position_x = SCREEN_WIDTH - self.radius
+
+        if self.position_y < self.radius:
+            self.position_y = self.radius
+
+        if self.position_y > SCREEN_HEIGHT - self.radius:
+            self.position_y = SCREEN_HEIGHT - self.radius
+=======
         self.change_x = 0
         self.change_y = 0
         self.error_sound = arcade.load_sound("arcade_resources_sounds_error2.wav")
@@ -102,6 +148,7 @@ class Kite:
         if self.position_y > SCREEN_HEIGHT - self.change_y:
             arcade.play_sound(self.error_sound)
             self.position_y = SCREEN_HEIGHT - self.change_y - 10
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
 
 class MyGame(arcade.Window):
@@ -115,6 +162,17 @@ class MyGame(arcade.Window):
         # So we just see our object, not the pointer.
         self.set_mouse_visible(False)
 
+<<<<<<< HEAD
+        arcade.set_background_color(arcade.color.ASH_GREY)
+
+        # Create our ball
+        self.ball = Player(50, 50, 0, 0, 15, arcade.color.AUBURN)
+
+    def on_draw(self):
+        """ Called whenever we need to draw the window. """
+        arcade.start_render()
+        self.ball.draw()
+=======
         arcade.set_background_color(arcade.color.SKY_BLUE)
 
         # Create our kite
@@ -160,10 +218,18 @@ class MyGame(arcade.Window):
         draw_grass()
         self.bird.draw()
         self.kite.draw()
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
     def on_mouse_motion(self, x, y, dx, dy):
         """ Called to update our objects.
         Happens approximately 60 times per second."""
+<<<<<<< HEAD
+        self.ball.position_x = x
+        self.ball.position_y = y
+
+    def update(self, delta_time):
+        self.ball.update()
+=======
         self.bird.position_x = x
         self.bird.position_y = y
 
@@ -177,10 +243,20 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         self.kite.update()
         self.bird.update()
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
     def on_key_press(self, key, modifiers):
         """ Called whenever the user presses a key. """
         if key == arcade.key.LEFT:
+<<<<<<< HEAD
+            self.ball.change_x = -MOVEMENT_SPEED
+        elif key == arcade.key.RIGHT:
+            self.ball.change_x = MOVEMENT_SPEED
+        elif key == arcade.key.UP:
+            self.ball.change_y = MOVEMENT_SPEED
+        elif key == arcade.key.DOWN:
+            self.ball.change_y = -MOVEMENT_SPEED
+=======
             self.kite.change_x = -MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
             self.kite.change_x = MOVEMENT_SPEED
@@ -188,13 +264,20 @@ class MyGame(arcade.Window):
             self.kite.change_y = MOVEMENT_SPEED
         elif key == arcade.key.DOWN:
             self.kite.change_y = -MOVEMENT_SPEED
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
     def on_key_release(self, key, modifiers):
         """ Called whenever a user releases a key. """
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
+<<<<<<< HEAD
+            self.ball.change_x = 0
+        elif key == arcade.key.UP or key == arcade.key.DOWN:
+            self.ball.change_y = 0
+=======
             self.kite.change_x = 0
         elif key == arcade.key.UP or key == arcade.key.DOWN:
             self.kite.change_y = 0
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
 
 def main():

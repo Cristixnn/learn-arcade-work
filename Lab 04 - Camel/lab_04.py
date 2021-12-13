@@ -5,6 +5,23 @@ import random
 # main function.
 def main():
     print("Hello cowboy!")
+<<<<<<< HEAD
+    print("You have stolen a horse and you are on your way to join along your crew but must cross the Mobi desert."
+          "\nThe stables wants there horse back and have put a bounty on you. Bounty hunters are after you!"
+          "\nYou must go through the Mobi desert and outrun the bounty hunters.")
+
+    if not done:
+        print("A. Drink water from your canteen.")
+    print("B. Ahead moderate speed.")
+    print("C. Ahead of full speed")
+    print("D. Stop and rest.")
+    print("E. Status check.")
+    print("Q. Quit")
+
+    Answer = input("What is your choice?")
+    if Answer < "A":
+        print(" You are hydrated!")
+=======
     print(
         "You have stolen a horse and you are on your way to join along with your crew but must cross the Mobi desert.")
     print("The stables want their horseback and have put a bounty on you. Bounty hunters are after you!")
@@ -137,6 +154,8 @@ Q. Quit.""")
             # gives user warning hunters are close.
             if miles_traveled - hunters_traveled <= 15:
                 print("The hunters are getting close!\n")
+
+>>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
 
 
 main()
