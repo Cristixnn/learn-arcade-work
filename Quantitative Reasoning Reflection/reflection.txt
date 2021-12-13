@@ -1,0 +1,63 @@
+Cristian Montes Montecinos
+12/07/2021
+Quantitative Reasoning Reflection
+
+Throughout the course, students were able to get hands-on learning with programming;
+with the experience, there are times when the programmer has to decide what
+technique works best for their line of code. Lab 04 - Camel uses multiple lists
+to keep the game from not being the same as your previous run. Loops are used
+to keep a game going by continuing; you are given the same multiple-choice actions
+every turn, which will affect your gameplay. Using a loop keeps the code going
+until the player either quits or loses. "If" statements were used to keep the
+game from having different possibilities. An example of an "if" statement would
+be if the player moves forward, there is a possibility they may find an oasis.
+Class method helped me take parameters and label them to a specific user.
+In Lab - 07 User Control, I used a class method to create a bird with parameters
+to control its movement and size. I knew writing a function would be the best
+method to develop a lot of shark fins on Lab 03 - Draw using functions. With
+parts, I created one shark and made it, so I can move it anywhere on the screen by
+just adding the x and y.
+
+    If your line of code is understandable to a programmer and someone who does
+not code, it is clear. A programmer can make a line of code clear by being
+descriptive with your variables. For example, If I want to make a variable that
+controls how many coins are generated in a code, I would name it "COIN_COUNT."
+Reading the variable "COIN_COUNT" will help the individual identify the
+variables' purpose, and you would be able to change the number of coins the
+individual wants. Adding descriptive names and feedback to your code will help
+better understand the line of code's purpose; this is useful if a
+programmer wants to update something within the code.
+
+Writing a code sometimes does not work the way you intended it to; you will
+encounter errors and need to fix them. I debug errors by cutting
+my problems into small sections and working on them piece by piece. Cutting
+my mistakes by amount allows me to determine what part of the line is causing this
+error and how to solve it. When you run your code, and an error pops up, the run
+tab will direct you to which line the computer was confused, which led to the
+error. It is essential to take the computer's feedback and solve the
+problem. However, if you know where the problem is located but cannot find the
+solution, you can open the chapters available on Arcade Academy to help you.
+
+    Using numerical methods to judge someone would not be the right way to go.
+Humanities emotions and attitude are too diverse and unique that having algorithms
+replace them. Many managers in there business encourage there employees to always
+have good towards the customers. Target is known encourage there employees to
+always have a good attitude and make the customer feel welcomed, and I believe
+algorithms would not be any better. Every individual has their own strengths and
+weakness, and evaluating a student only on test scores would be unfair. Everyone
+goes through life at their own pace and setting expectations to a diverse country
+such as the United States would not be evaluated fairly. there are many categories
+that help indicate how big of an asset you are, and solely using a test score
+would take away individuals opportunities who are not good at taking tests but has
+a lot of hands-on experience.
+
+
+
+
+
+
+
+
+
+
+
