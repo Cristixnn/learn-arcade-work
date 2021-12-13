@@ -1,21 +1,13 @@
-<<<<<<< HEAD
-import re
 
-
-# This function takes in a line of text and returns
-# a list of words in the line.
-def split_line(line):
-    return re.findall('[A-Za-z]+(?:\'[A-Za-z]+)?', line)
-=======
 import random
 import arcade
 
 # --- Constants ---
 done = False
 SPRITE_SCALING_PLAYER = 0.5
-SPRITE_SCALING_GEMS = 0.3
-GEM_COUNT = 50
-ROCK_COUNT = 30
+SPRITE_SCALING_GEMS = 1
+GEM_COUNT = 60
+ROCK_COUNT = 1
 MOVEMENT_SPEED = 2
 
 SCREEN_WIDTH = 800
@@ -30,7 +22,7 @@ class Gem(arcade.Sprite):
         self.change_x = random.randrange(SCREEN_WIDTH)
 
     def update(self):
-        self.center_y -= 0.5
+        self.center_y += 1
 
         if self.top < 0:
             self.reset_pos()
@@ -94,19 +86,19 @@ class MyGame(arcade.Window):
         for i in range(GEM_COUNT):
             # Create the gem instance
             # Gem image from arcade library
-            gem = Gem("gemBlue.png", SPRITE_SCALING_GEMS / 3)
+            gem = Gem("water.png", SPRITE_SCALING_GEMS / 3)
 
             # Position the gem
-            gem.center_x = random.randrange(SCREEN_WIDTH)
-            gem.center_y = random.randrange(SCREEN_HEIGHT)
-            gem.change_x = random.randrange(-3, 4)
-            gem.change_y = random.randrange(-3, 4)
+            gem.center_x = random.randrange(0,900)
+            gem.center_y = 100
+            gem.change_x = 0
+            gem.change_y = random.randrange(3)
 
             # Add the gem to the lists
             self.gem_list.append(gem)
 
         for i in range(ROCK_COUNT):
-            rock = Rock("meteorGrey_big3.png", SPRITE_SCALING_GEMS)
+            rock = Rock("../Lab 12 - Final Lab/meteorGrey_big3.png", SPRITE_SCALING_GEMS)
             rock.center_x = random.randrange(SCREEN_WIDTH)
             rock.center_y = random.randrange(SCREEN_HEIGHT)
             rock.change_x = random.randrange(-3, 4)
@@ -192,4 +184,4 @@ def main():
 
 if __name__ == "__main__":
     main()
->>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd
+

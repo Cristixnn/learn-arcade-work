@@ -1,187 +1,119 @@
-<<<<<<< HEAD
 """
-Move with a Sprite Animation
+Sprite Follow Player
 
-Simple program to show basic sprite usage.
+This moves towards the player in both the x and y direction.
 
 Artwork from https://kenney.nl
 
 If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.sprite_move_animation
+python -m arcade.examples.sprite_follow_simple
 """
-import arcade
+
 import random
+import arcade
+import os
+
+# --- Constants ---
+SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_COIN = 0.2
+COIN_COUNT = 50
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Move with a Sprite Animation Example"
+SCREEN_TITLE = "Sprite Follow Player Simple Example"
 
-COIN_SCALE = 0.5
-COIN_COUNT = 50
-CHARACTER_SCALING = 1
-
-# How fast to move, and how fast to run the animation
-
-MOVEMENT_SPEED = 5
-
-UPDATES_PER_FRAME = 5
-
-# Constants used to track if the player is facing left or right
-
-RIGHT_FACING = 0
-
-LEFT_FACING = 1
+SPRITE_SPEED = 0.5
 
 
-def load_texture_pair(filename):
+class Coin(arcade.Sprite):
+    """
+    This class represents the coins on our screen. It is a child class of
+    the arcade library's "Sprite" class.
     """
 
-    Load a texture pair, with the second being a mirror image.
+    def follow_sprite(self, player_sprite):
+        """
+        This function will move the current sprite towards whatever
+        other sprite is specified as a parameter.
 
-    """
+        We use the 'min' function here to get the sprite to line up with
+        the target sprite, and not jump around if the sprite is not off
+        an exact multiple of SPRITE_SPEED.
+        """
 
-    return [
+        if self.center_y < player_sprite.center_y:
+            self.center_y += min(SPRITE_SPEED, player_sprite.center_y - self.center_y)
+        elif self.center_y > player_sprite.center_y:
+            self.center_y -= min(SPRITE_SPEED, self.center_y - player_sprite.center_y)
 
-        arcade.load_texture(filename),
-
-        arcade.load_texture(filename, flipped_horizontally=True)
-
-    ]
-
-
-class PlayerCharacter(arcade.Sprite):
-    def __init__(self):
-
-        # Set up parent class
-        super().__init__()
-
-        # Default to face-right
-
-        self.character_face_direction = RIGHT_FACING
-
-        # Used for flipping between image sequences
-
-        self.cur_texture = 0
-
-        self.scale = CHARACTER_SCALING
-
-        # Adjust the collision box. Default includes too much empty space
-
-        # side-to-side. Box is centered at sprite center, (0, 0)
-
-        self.points = [[-22, -64], [22, -64], [22, 28], [-22, 28]]
-
-        # --- Load Textures ---
-
-        # Images from Kenney.nl's Asset Pack 3
-
-        main_path = ":resources:images/animated_characters/female_adventurer/femaleAdventurer"
-
-        # main_path = ":resources:images/animated_characters/female_person/femalePerson"
-
-        # main_path = ":resources:images/animated_characters/male_person/malePerson"
-
-        # main_path = ":resources:images/animated_characters/male_adventurer/maleAdventurer"
-
-        # main_path = ":resources:images/animated_characters/zombie/zombie"
-
-        # main_path = ":resources:images/animated_characters/robot/robot"
-
-        # Load textures for idle standing
-
-        self.idle_texture_pair = load_texture_pair(f"{main_path}_idle.png")
-
-        # Load textures for walking
-
-        self.walk_textures = []
-
-        for i in range(8):
-            texture = load_texture_pair(f"{main_path}_walk{i}.png")
-
-            self.walk_textures.append(texture)
-
-    def update_animation(self, delta_time: float = 1 / 60):
-
-        # Figure out if we need to flip face left or right
-
-        if self.change_x < 0 and self.character_face_direction == RIGHT_FACING:
-
-            self.character_face_direction = LEFT_FACING
-
-        elif self.change_x > 0 and self.character_face_direction == LEFT_FACING:
-
-            self.character_face_direction = RIGHT_FACING
-
-        # Idle animation
-
-        if self.change_x == 0 and self.change_y == 0:
-            self.texture = self.idle_texture_pair[self.character_face_direction]
-
-            return
-
-        # Walking animation
-
-        self.cur_texture += 1
-
-        if self.cur_texture > 7 * UPDATES_PER_FRAME:
-            self.cur_texture = 0
-
-        frame = self.cur_texture // UPDATES_PER_FRAME
-
-        direction = self.character_face_direction
-
-        self.texture = self.walk_textures[frame][direction]
+        if self.center_x < player_sprite.center_x:
+            self.center_x += min(SPRITE_SPEED, player_sprite.center_x - self.center_x)
+        elif self.center_x > player_sprite.center_x:
+            self.center_x -= min(SPRITE_SPEED, self.center_x - player_sprite.center_x)
 
 
 class MyGame(arcade.Window):
-    """ Main application class. """
+    """ Our custom Window Class"""
 
-    def __init__(self, width, height, title):
-        """ Set up the game and initialize the variables. """
-        super().__init__(width, height, title)
+    def __init__(self):
+        """ Initializer """
+        # Call the parent class initializer
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
 
-        # Sprite lists
+        # Set the working directory (where we expect to find files) to the same
+        # directory this .py file is in. You can leave this out of your own
+        # code, but it is needed to easily run the examples using "python -m"
+        # as mentioned at the top of this program.
+        file_path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(file_path)
+
+        # Variables that will hold sprite lists
         self.player_list = None
         self.coin_list = None
 
-        # Set up the player
+        # Set up the player info
+        self.player_sprite = None
         self.score = 0
-        self.player = None
+
+        # Don't show the mouse cursor
+        self.set_mouse_visible(False)
+
+        arcade.set_background_color(arcade.color.AMAZON)
 
     def setup(self):
+        """ Set up the game and initialize the variables. """
+
+        # Sprite lists
         self.player_list = arcade.SpriteList()
         self.coin_list = arcade.SpriteList()
 
-        # Set up the player
+        # Score
         self.score = 0
-        self.player = PlayerCharacter()
 
-        self.player.center_x = SCREEN_WIDTH // 2
-        self.player.center_y = SCREEN_HEIGHT // 2
-        self.player.scale = 0.8
+        # Set up the player
+        # Character image from kenney.nl
+        self.player_sprite = arcade.Sprite(":resources:images/animated_characters/female_person/"
+                                           "femalePerson_idle.png", SPRITE_SCALING_PLAYER)
+        self.player_sprite.center_x = 50
+        self.player_sprite.center_y = 50
+        self.player_list.append(self.player_sprite)
 
-        self.player_list.append(self.player)
-
+        # Create the coins
         for i in range(COIN_COUNT):
-            coin = arcade.Sprite(":resources:images/items/gold_1.png",
-                                 scale=0.5)
+            # Create the coin instance
+            # Coin image from kenney.nl
+            coin = Coin(":resources:images/items/coinGold.png", SPRITE_SCALING_COIN)
+
+            # Position the coin
             coin.center_x = random.randrange(SCREEN_WIDTH)
             coin.center_y = random.randrange(SCREEN_HEIGHT)
 
+            # Add the coin to the lists
             self.coin_list.append(coin)
 
-        # Set the background color
-        arcade.set_background_color(arcade.color.AMAZON)
-
     def on_draw(self):
-        """
-        Render the screen.
-        """
-
-        # This command has to happen before we start drawing
+        """ Draw everything """
         arcade.start_render()
-
-        # Draw all the sprites.
         self.coin_list.draw()
         self.player_list.draw()
 
@@ -189,40 +121,21 @@ class MyGame(arcade.Window):
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
 
-    def on_key_press(self, key, modifiers):
-        """
-        Called whenever a key is pressed.
-        """
-        if key == arcade.key.UP:
-            self.player.change_y = MOVEMENT_SPEED
-        elif key == arcade.key.DOWN:
-            self.player.change_y = -MOVEMENT_SPEED
-        elif key == arcade.key.LEFT:
-            self.player.change_x = -MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
-            self.player.change_x = MOVEMENT_SPEED
+    def on_mouse_motion(self, x, y, dx, dy):
+        """ Handle Mouse Motion """
 
-    def on_key_release(self, key, modifiers):
-        """
-        Called when the user releases a key.
-        """
-        if key == arcade.key.UP or key == arcade.key.DOWN:
-            self.player.change_y = 0
-        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.player.change_x = 0
+        # Move the center of the player sprite to match the mouse x, y
+        self.player_sprite.center_x = x
+        self.player_sprite.center_y = y
 
     def on_update(self, delta_time):
         """ Movement and game logic """
 
-        # Move the player
-        self.player_list.update()
-
-        # Update the players animation
-
-        self.player_list.update_animation()
+        for coin in self.coin_list:
+            coin.follow_sprite(self.player_sprite)
 
         # Generate a list of all sprites that collided with the player.
-        hit_list = arcade.check_for_collision_with_list(self.player, self.coin_list)
+        hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.coin_list)
 
         # Loop through each colliding sprite, remove it, and add to the score.
         for coin in hit_list:
@@ -232,124 +145,10 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main function """
-    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    window = MyGame()
     window.setup()
     arcade.run()
 
 
 if __name__ == "__main__":
     main()
-=======
-# LOOPY LAB 5
-import arcade
-
-SCREEN_WIDTH = 1425
-SCREEN_HEIGHT = 720
-
-
-def outlines():
-    arcade.draw_rectangle_outline(180, 180, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(180, 540, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(535, 180, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(535, 540, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(890, 180, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(890, 540, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(1245, 180, 350, 355, arcade.color.WHITE)
-    arcade.draw_rectangle_outline(1245, 540, 350, 355, arcade.color.WHITE)
-
-
-def bottom_square_1():
-    for row in range(36):
-        for column in range(36):
-            x = column * 10 + 5
-            y = row * 10 + 5
-            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def bottom_square_2():
-    for row in range(35):
-        for column in range(35):
-            x = column * 10 + 365
-            y = row * 10 + 13
-            if column % 2 == 0:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-            else:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLUE)
-
-
-def bottom_square_3():
-    for row in range(35):
-        for column in range(35):
-            x = column * 10 + 721
-            y = row * 10 + 13
-            if row % 2 == 0:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-            else:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLUE)
-
-
-def bottom_square_4():
-    for row in range(35):
-        for column in range(35):
-            x = column * 10 + 1075
-            y = row * 10 + 13
-            if row % 2 == 0 and column % 2 == 0:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.BLUE)
-            else:
-                arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def upper_square_1():
-    for column in range(35):
-        for row in range(column + 1):
-            x = column * 10 + 13
-            y = row * 10 + 365
-            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def upper_square_2():
-    for row in range(35):
-        for column in range(35 - row):
-            x = column * 10 + 365
-            y = row * 10 + 365
-            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def upper_square_3():
-    for row in range(35):
-        for column in range(row + 1):
-            x = (34 - column) * 10 + 720
-            y = row * 10 + 370
-            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def upper_square_4():
-    for row in range(37):
-        for column in range(row - 1):
-            x = column * 10 + 1077
-            y = row * 10 + 350
-            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
-
-
-def main():
-    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Loopy Lab")
-    arcade.set_background_color(arcade.color.AIR_SUPERIORITY_BLUE)
-
-    outlines()
-
-    bottom_square_1()
-    bottom_square_2()
-    bottom_square_3()
-    bottom_square_4()
-    upper_square_1()
-    upper_square_2()
-    upper_square_3()
-    upper_square_4()
-
-    # Finish and run
-    arcade.run()
-
-
-# Call the main function to get the program started.
-main()
->>>>>>> 2afb41a689d6e9ac7ced182c81c651a747f748cd

@@ -23,6 +23,8 @@ SPRITE_SCALING_GEM = 0.5
 GEM_COUNT = 50
 
 
+
+
 class MyGame(arcade.Window):
     """ Main application class. """
 
@@ -147,6 +149,7 @@ class MyGame(arcade.Window):
             self.player_sprite.change_x = PLAYER_MOVEMENT_SPEED
 
 
+
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
 
@@ -171,6 +174,7 @@ class MyGame(arcade.Window):
 
         # Scroll the screen to the player
         self.scroll_to_player()
+
 
     def scroll_to_player(self):
         """
